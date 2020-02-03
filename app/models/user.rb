@@ -15,6 +15,9 @@ class User < ApplicationRecord
   validates_confirmation_of :password
 
   before_save :encrypt_password
+  before_validation :lower_case, on: :create
+
+  private
 
   def encrypt_password
     if password.present?
@@ -68,5 +71,9 @@ class User < ApplicationRecord
 
     # Иначе, возвращаем nil
     nil
+  end
+
+  def lower_case
+    self.username = username.downcase
   end
 end
