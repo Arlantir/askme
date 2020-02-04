@@ -15,7 +15,7 @@ class User < ApplicationRecord
   validates_confirmation_of :password
 
   before_save :encrypt_password
-  before_validation :lower_case, on: :create
+  before_validation :lower_case, on: [:create, :update]
 
   private
 
