@@ -12,7 +12,7 @@ class User < ApplicationRecord
 
   attr_accessor :password
 
-  validates_format_of :email, with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i, on: :create
+  validates_format_of :email, with: /\A.+@.+\z/, on: :create
   validates_format_of :username, with: /\A[_a-zA-Z0-9]+\Z/
   validates_presence_of :password, on: :create
   validates_confirmation_of :password
