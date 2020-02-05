@@ -1,7 +1,6 @@
 require 'openssl'
 
 class User < ApplicationRecord
-
   ITERATIONS = 20_000
   DIGEST = OpenSSL::Digest::SHA256.new
 
@@ -12,8 +11,8 @@ class User < ApplicationRecord
 
   attr_accessor :password
 
-  validates_format_of :email, with: /\A.+@.+\z/, on: :create
-  validates_format_of :username, with: /\A[_a-zA-Z0-9]+\Z/
+  validates :email, format: { with: /\A.+@.+\z/, on: %i[create update] }
+  validates :username, format: { with: /\A[_a-zA-Z0-9]+\Z/ }
   validates_presence_of :password, on: :create
   validates_confirmation_of :password
 
@@ -23,7 +22,7 @@ class User < ApplicationRecord
     if password.present?
       # Создаем т.н. «соль» — случайная строка, усложняющая задачу хакерам по
       # взлому пароля, даже если у них окажется наша БД.
-      #У каждого юзера своя «соль», это значит, что если подобрать перебором пароль
+      # У каждого юзера своя «соль», это значит, что если подобрать перебором пароль
       # одного юзера, нельзя разгадать, по какому принципу
       # зашифрованы пароли остальных пользователей
       self.password_salt = User.hash_to_string(OpenSSL::Random.random_bytes(16))
@@ -44,7 +43,7 @@ class User < ApplicationRecord
   # Служебный метод, преобразующий бинарную строку в шестнадцатиричный формат,
   # для удобства хранения.
   def self.hash_to_string(password_hash)
-    password_hash.unpack('H*')[0]
+    password_hash.unpack1('H*')
   end
 
   # Основной метод для аутентификации юзера (логина). Проверяет email и пароль,
