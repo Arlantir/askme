@@ -11,10 +11,10 @@ class User < ApplicationRecord
 
   attr_accessor :password
 
-  validates :email, format: { with: /\A.+@.+\z/, on: %i[create update] }
+  validates :email, format: { with: /\A.+@.+\z/ }
   validates :username, format: { with: /\A[_a-zA-Z0-9]+\Z/ }
-  validates_presence_of :password, on: :create
-  validates_confirmation_of :password
+  validates :password, on: :create, presence: true
+  validates :password, confirmation: true
 
   before_save :encrypt_password
 
@@ -43,7 +43,7 @@ class User < ApplicationRecord
   # Служебный метод, преобразующий бинарную строку в шестнадцатиричный формат,
   # для удобства хранения.
   def self.hash_to_string(password_hash)
-    password_hash.unpack1('H*')
+    password_hash.unpack('H*')[0]
   end
 
   # Основной метод для аутентификации юзера (логина). Проверяет email и пароль,
