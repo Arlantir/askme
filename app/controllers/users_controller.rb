@@ -25,7 +25,7 @@ class UsersController < ApplicationController
     @user = User.new(
       name: 'Denis',
       username: 'Arlantir',
-      avatar_url: 'https://secure.gravatar.com/avatar/71269686e0f757ddb4f73614f43ae445?s=100'
+      avatar_url: 'http://www.gravatar.com/avatar/?d=retro&s=100'
     )
 
     @questions = [
