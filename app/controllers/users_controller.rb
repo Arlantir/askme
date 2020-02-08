@@ -1,38 +1,30 @@
 class UsersController < ApplicationController
   def index
-    # Мы создаем массив из двух болванок пользователей. Для создания фейковой
-    # модели мы просто вызываем метод User.new, который создает модель, не
-    # записывая её в базу.
-    @users = [
-      User.new(
-        id: 1,
-        name: 'Vadim',
-        username: 'installero',
-        avatar_url: 'https://secure.gravatar.com/avatar/' \
-          '71269686e0f757ddb4f73614f43ae445?s=100'
-      ),
-      User.new(id: 2, name: 'Misha', username: 'aristofun')
-    ]
+    @users = User.all
   end
 
   def new
+    @user = User.new
+  end
+
+  def create
+    @user = User.new(user_params)
+
+    if @user.save
+      redirect_to root_url, notice: 'Пользователь успешно зарегестрирован!'
+    end
   end
 
   def edit
   end
 
   def show
-    @user = User.new(
-      name: 'Denis',
-      username: 'Arlantir',
-      avatar_url: 'https://secure.gravatar.com/avatar/71269686e0f757ddb4f73614f43ae445?s=100'
-    )
+  end
 
-    @questions = [
-      Question.new(text: 'Как дела?', created_at: Date.parse('08.02.2020')),
-      Question.new(text: 'В чем смысл жизни?', created_at: Date.parse('08.02.2020'))
-    ]
+  private
 
-    @new_question = Question.new
+  def user_params
+    params.require(:user).permit(:email, :password, :password_confirmation,
+                                 :name, :username, :avatar_url)
   end
 end
