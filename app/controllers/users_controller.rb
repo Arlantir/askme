@@ -40,7 +40,7 @@ class UsersController < ApplicationController
     @questions_answer_blank = 0
 
     @questions.each do |question|
-      if question.answer.present?
+      if question.answer.blank?
         @questions_answer_blank += 1
       else
         @questions_answer += 1
