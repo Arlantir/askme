@@ -22,12 +22,37 @@
   </div>
 </div>
 
-<div class="user-questions buffer-both">
-  <div class="questions-list text-center">
-    <p>
-      <%= inclination(@questions.count, 'Вопрос', 'Вопроса', 'Вопросов') %>
-    </p>
-    <%= @questions.count %>
+<div class="container">
+  <div class="column-1-3">
+    <div class="user-questions buffer-both">
+      <div class="questions-list text-center">
+        <p>
+          <%= inclination(@questions.count, 'Вопрос', 'Вопроса', 'Вопросов') %>
+        </p>
+        <%= @questions.count %>
+      </div>
+    </div>
+  </div>
+<!--  <div class="column-1-3">-->
+<!--    <div class="user-questions buffer-both">-->
+<!--      <div class="questions-list text-center">-->
+<!--        <p>-->
+<!-
+<!--        </p>-->
+        <%#= @questions.answer.count %>
+<!--      </div>-->
+<!--    </div>-->
+<!--  </div>-->
+  <div class="column-1-3">
+    <div class="user-questions buffer-both">
+      <div class="questions-list text-center">
+        <p>
+          <%= inclination(@questions.answer.blank?, 'Неотвеченный вопрос', 'Неотвеченных вопроса', 'Неотвеченных
+          вопросов') %>
+        </p>
+        <%= @questions.answer.blank? %>
+      </div>
+    </div>
   </div>
 </div>
 
