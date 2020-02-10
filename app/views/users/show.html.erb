@@ -27,30 +27,32 @@
     <div class="user-questions buffer-both">
       <div class="questions-list text-center">
         <p>
-          <%= inclination(@questions.count, 'Вопрос', 'Вопроса', 'Вопросов') %>
+          <%= inclination(@questions_count, 'Вопрос', 'Вопроса', 'Вопросов') %>
         </p>
-        <%= @questions.count %>
+        <%= @questions_count %>
       </div>
     </div>
   </div>
-<!--  <div class="column-1-3">-->
-<!--    <div class="user-questions buffer-both">-->
-<!--      <div class="questions-list text-center">-->
-<!--        <p>-->
-<!-
-<!--        </p>-->
-        <%#= @questions.answer.count %>
-<!--      </div>-->
-<!--    </div>-->
-<!--  </div>-->
+
   <div class="column-1-3">
     <div class="user-questions buffer-both">
       <div class="questions-list text-center">
         <p>
-          <%= inclination(@questions.answer.blank?, 'Неотвеченный вопрос', 'Неотвеченных вопроса', 'Неотвеченных
+          <%= inclination(@questions_answer, 'Отвеченный вопрос', 'Отвеченных вопроса', 'Отвеченных вопросов') %>
+        </p>
+        <%= @questions_answer %>
+      </div>
+    </div>
+  </div>
+
+  <div class="column-1-3">
+    <div class="user-questions buffer-both">
+      <div class="questions-list text-center">
+        <p>
+          <%= inclination(@questions_answer_blank, 'Не отвеченный вопрос', 'Не отвеченных вопроса', 'Не отвеченных
           вопросов') %>
         </p>
-        <%= @questions.answer.blank? %>
+        <%= @questions_answer_blank %>
       </div>
     </div>
   </div>
