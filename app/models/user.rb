@@ -6,13 +6,15 @@ class User < ApplicationRecord
 
   has_many :questions
 
-  validates :email, :username, presence: true
+  validates :email, :username, length: { maximum: 40 }, presence: true
   validates :email, :username, uniqueness: true
 
   attr_accessor :password
 
-  validates_presence_of :password, on: :create
-  validates_confirmation_of :password
+  validates :email, format: { with: /\A.+@.+\z/ }
+  validates :username, format: { with: /\A[_a-zA-Z0-9]+\Z/ }
+  validates :password, on: :create, presence: true
+  validates :password, confirmation: true
 
   before_save :encrypt_password
   before_validation :lower_case, on: [:create, :update]
@@ -23,7 +25,7 @@ class User < ApplicationRecord
     if password.present?
       # Создаем т.н. «соль» — случайная строка, усложняющая задачу хакерам по
       # взлому пароля, даже если у них окажется наша БД.
-      #У каждого юзера своя «соль», это значит, что если подобрать перебором пароль
+      # У каждого юзера своя «соль», это значит, что если подобрать перебором пароль
       # одного юзера, нельзя разгадать, по какому принципу
       # зашифрованы пароли остальных пользователей
       self.password_salt = User.hash_to_string(OpenSSL::Random.random_bytes(16))
