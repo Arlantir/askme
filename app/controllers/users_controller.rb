@@ -15,14 +15,11 @@ class UsersController < ApplicationController
     ]
   end
 
-  def new
-  end
+  def new; end
 
-  def edit
-  end
+  def edit; end
 
   def show
-
     @user = User.new(
       name: 'Denis',
       username: 'Arlantir',
@@ -32,20 +29,19 @@ class UsersController < ApplicationController
     @questions = [
       Question.new(text: 'Как дела?', answer: 'Типа ответ', created_at: Date.parse('08.02.2020')),
       Question.new(text: 'В чем смысл жизни?', answer: 'Типа ответ', created_at: Date.parse('08.02.2020')),
+      Question.new(text: 'Как дела?', answer: 'Типа ответ', created_at: Date.parse('08.02.2020')),
+      Question.new(text: 'В чем смысл жизнrererreи?', created_at: Date.parse('08.02.2020')),
+      Question.new(text: 'В чем смысл жизни?', answer: 'Типа ответ', created_at: Date.parse('08.02.2020')),
       Question.new(text: 'В чем смысл жизнrererreи?', created_at: Date.parse('08.02.2020'))
     ]
 
-    @questions_count = @questions.count
+    @questions_count = 0
     @questions_answer = 0
     @questions_answer_blank = 0
 
-    @questions.each do |question|
-      if question.answer.present?
-        @questions_answer += 1
-      else
-        @questions_answer_blank += 1
-      end
-    end
+    @questions_count        = @questions.count
+    @questions_answer       = @questions.count(&:answer)
+    @questions_answer_blank = @questions.count { |question| question.answer.blank? }
 
     @new_question = Question.new
   end
