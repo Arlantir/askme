@@ -40,9 +40,9 @@ class UsersController < ApplicationController
     @questions_answer_blank = 0
 
     @questions_count        = @questions.count
-    @questions_answer       = @questions_count - @questions_answer_blank
     @questions_answer_blank = @questions.count { |question| question.answer.blank? }
-
+    @questions_answer       = @questions_count - @questions_answer_blank
+    
     @new_question = Question.new
   end
 end
