@@ -35,10 +35,6 @@ class UsersController < ApplicationController
       Question.new(text: 'В чем смысл жизнrererreи?', created_at: Date.parse('08.02.2020'))
     ]
 
-    @questions_count = 0
-    @questions_answer = 0
-    @questions_answer_blank = 0
-
     @questions_count        = @questions.count
     @questions_answer_blank = @questions.count { |question| question.answer.blank? }
     @questions_answer       = @questions_count - @questions_answer_blank
