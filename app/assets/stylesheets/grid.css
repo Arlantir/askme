@@ -24,6 +24,11 @@
   margin-top: 40px;
 }
 
+.buffer-statistic {
+  margin-bottom: -15px;
+  margin-top: 5px;
+}
+
 .container {
   max-width: 960px;
   margin-left: auto;
