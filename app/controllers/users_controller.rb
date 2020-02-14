@@ -25,8 +25,9 @@ class UsersController < ApplicationController
     end
   end
 
-  def edit
-  end
+  def new; end
+
+  def edit; end
 
   def update
     if @user.update(user_params)
@@ -38,6 +39,10 @@ class UsersController < ApplicationController
 
   def show
     @questions = @user.questions.order(created_at: :desc)
+
+    @questions_count        = @questions.count
+    @questions_answer_blank = @questions.count { |question| question.answer.blank? }
+    @questions_answer       = @questions_count - @questions_answer_blank
 
     @new_question = @user.questions.build
   end
