@@ -24,8 +24,6 @@ class UsersController < ApplicationController
     end
   end
 
-  def new; end
-
   def edit; end
 
   def update
@@ -44,6 +42,11 @@ class UsersController < ApplicationController
     @questions_answer       = @questions_count - @questions_answer_blank
 
     @new_question = @user.questions.build
+  end
+
+  def destroy
+    @user.destroy
+    redirect_to root_path, notice: "Пользователь @#{@user.username} - удален!"
   end
 
   private
