@@ -4,7 +4,7 @@ class UsersController < ApplicationController
   before_action :authorize_user, except: %i[index new create show]
 
   def index
-    @users = User.all
+    @users = User.sorted
   end
 
   def new
@@ -18,6 +18,7 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
 
     if @user.save
+      session[:user_id] = @user.id
       redirect_to root_url, notice: 'Пользователь успешно зарегестрирован!'
     else
       render 'new'
@@ -44,6 +45,11 @@ class UsersController < ApplicationController
     @new_question = @user.questions.build
   end
 
+  def destroy
+    @user.destroy
+    redirect_to root_path, notice: "Пользователь @#{@user.username} - удален!"
+  end
+
   private
   def authorize_user
     reject_user unless @user == current_user
@@ -55,6 +61,6 @@ class UsersController < ApplicationController
 
   def user_params
     params.require(:user).permit(:email, :password, :password_confirmation,
-                                 :name, :username, :avatar_url)
+                                 :name, :username, :avatar_url, :color)
   end
 end

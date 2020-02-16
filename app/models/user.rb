@@ -3,8 +3,10 @@ require 'openssl'
 class User < ApplicationRecord
   ITERATIONS = 20_000
   DIGEST = OpenSSL::Digest::SHA256.new
+  
+  scope :sorted, -> { order(id: :desc) }
 
-  has_many :questions
+  has_many :questions, dependent: :destroy
 
   validates :email, :username, length: { maximum: 40 }, presence: true
   validates :email, :username, uniqueness: true
@@ -15,6 +17,7 @@ class User < ApplicationRecord
   validates :username, format: { with: /\A[_a-zA-Z0-9]+\Z/ }
   validates :password, on: :create, presence: true
   validates :password, confirmation: true
+  validates :color, format: { with: /\A#?(?:[A-F0-9]{3}){1,2}\z/i }
 
   before_save :encrypt_password
   before_validation :lower_case, on: [:create, :update]
