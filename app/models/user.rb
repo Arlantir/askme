@@ -17,7 +17,7 @@ class User < ApplicationRecord
   validates :username, format: { with: /\A[_a-zA-Z0-9]+\Z/ }
   validates :password, on: :create, presence: true
   validates :password, confirmation: true
-  validates :color, format: { with: /\A#?(?:[A-F0-9]{3}){1,2}\z/i }
+  validates :color, format: { with: /\A#?(?:[A-F0-9]{3}){1,2}\z/i }, on: :update
 
   before_save :encrypt_password
   before_validation :lower_case, on: [:create, :update]
