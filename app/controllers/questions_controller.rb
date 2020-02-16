@@ -13,7 +13,7 @@ class QuestionsController < ApplicationController
 
 
     if @question.save
-      @author = current_user
+      @question.author_id = current_user
       redirect_to user_path(@question.user), notice: 'Вопрос задан'
     else
       render :edit
