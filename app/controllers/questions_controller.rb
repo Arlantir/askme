@@ -1,5 +1,4 @@
 class QuestionsController < ApplicationController
-
   before_action :load_question, only: %i[show edit update destroy]
   before_action :authorize_user, except: %i[create]
 
@@ -10,10 +9,9 @@ class QuestionsController < ApplicationController
   # POST /questions
   def create
     @question = Question.new(question_params)
+    @question.author = current_user
 
-
-    if @question.save
-      @question.author_id = current_user
+      if @question.save
       redirect_to user_path(@question.user), notice: 'Вопрос задан'
     else
       render :edit
