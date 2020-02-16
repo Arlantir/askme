@@ -4,7 +4,7 @@ class UsersController < ApplicationController
   before_action :authorize_user, except: %i[index new create show]
 
   def index
-    @users = User.order(id: :desc)
+    @users = User.sorted
   end
 
   def new
