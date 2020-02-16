@@ -3,10 +3,10 @@ require 'openssl'
 class User < ApplicationRecord
   ITERATIONS = 20_000
   DIGEST = OpenSSL::Digest::SHA256.new
-
+  
   scope :sorted, -> { order(id: :desc) }
 
-  has_many :questions
+  has_many :questions, dependent: :destroy
 
   validates :email, :username, length: { maximum: 40 }, presence: true
   validates :email, :username, uniqueness: true

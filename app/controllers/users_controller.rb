@@ -45,6 +45,11 @@ class UsersController < ApplicationController
     @new_question = @user.questions.build
   end
 
+  def destroy
+    @user.destroy
+    redirect_to root_path, notice: "Пользователь @#{@user.username} - удален!"
+  end
+
   private
   def authorize_user
     reject_user unless @user == current_user
