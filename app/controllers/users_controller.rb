@@ -4,7 +4,7 @@ class UsersController < ApplicationController
   before_action :authorize_user, except: %i[index new create show]
 
   def index
-    @users = User.order(id: :asc)
+    @users = User.sorted
   end
 
   def new
@@ -43,6 +43,11 @@ class UsersController < ApplicationController
     @questions_answer       = @questions_count - @questions_answer_blank
 
     @new_question = @user.questions.build
+  end
+
+  def destroy
+    @user.destroy
+    redirect_to root_path, notice: "Пользователь @#{@user.username} - удален!"
   end
 
   private
