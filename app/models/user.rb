@@ -7,6 +7,9 @@ class User < ApplicationRecord
   scope :sorted, -> { order(id: :desc) }
 
   has_many :questions, dependent: :destroy
+  has_many :authored_questions, class_name: 'Question',
+                                foreign_key: 'author_id',
+                                dependent: :nullify
 
   validates :email, :username, length: { maximum: 40 }, presence: true
   validates :email, :username, uniqueness: true
