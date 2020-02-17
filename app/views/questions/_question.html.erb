@@ -19,6 +19,7 @@
 
     <div class="question-date">
       <%= l(question.created_at, format: :short) %>
+      <%= question.author_id.present? ? (link_to "@#{question.author.username}" , user_path(question.author) if question.author.present?) : 'Anonimous' %>
     </div>
   </div>
 
