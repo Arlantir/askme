@@ -7,6 +7,9 @@ class User < ApplicationRecord
   scope :sorted, -> { order(id: :desc) }
 
   has_many :questions, dependent: :destroy
+  has_many :authored_questions, class_name: 'Question',
+                                foreign_key: 'author_id',
+                                dependent: :nullify
 
   validates :email, :username, length: { maximum: 40 }, presence: true
   validates :email, :username, uniqueness: true
@@ -18,7 +21,7 @@ class User < ApplicationRecord
   validates :password, on: :create, presence: true
   validates :password, confirmation: true
 
-  validates :color, format: { with: /\A#?(?:[A-F0-9]{3}){1,2}\z/i }, on: :update
+  validates :color, format: { with: /\A#([A-F0-9]{6}){1,2}\z/i }, on: :update
 
   before_save :encrypt_password
   before_validation :lower_case, on: [:create, :update]
