@@ -2,23 +2,19 @@ class QuestionsController < ApplicationController
   before_action :load_question, only: %i[show edit update destroy]
   before_action :authorize_user, except: %i[create]
 
-  # GET /questions/1/edit
-  def edit
-  end
+  def edit; end
 
-  # POST /questions
   def create
     @question = Question.new(question_params)
     @question.author = current_user
 
-      if @question.save
+    if check_captcha(@question) && @question.save
       redirect_to user_path(@question.user), notice: 'Вопрос задан'
     else
       render :edit
     end
   end
 
-  # PATCH/PUT /questions/1
   def update
     if @question.update(question_params.except(:user_id))
       redirect_to user_path(@question.user), notice: 'Вопрос сохранен'
@@ -27,7 +23,6 @@ class QuestionsController < ApplicationController
     end
   end
 
-  # DELETE /questions/1
   def destroy
     user = @question.user
     @question.destroy
@@ -56,5 +51,9 @@ class QuestionsController < ApplicationController
     else
       params.require(:question).permit(:user_id, :text)
     end
+  end
+
+  def check_captcha(model)
+    current_user.present? || verify_recaptcha(model: model)
   end
 end
