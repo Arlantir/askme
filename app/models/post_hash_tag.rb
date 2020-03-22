@@ -1,2 +1,0 @@
-class PostHashTag < ApplicationRecord
-end
