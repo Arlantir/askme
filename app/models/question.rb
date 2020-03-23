@@ -10,7 +10,7 @@ class Question < ApplicationRecord
   after_commit :create_hash_tags, on: %i[create update]
 
   def create_hash_tags
-    text.scan(/#\w+/).map do |str|
+    text.scan(/#[[:word:]-]+/).map do |str|
       str.gsub("#", "")
       hash_tags.create(name: str)
     end
