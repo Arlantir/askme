@@ -7,9 +7,7 @@ class Question < ApplicationRecord
 
   validates :text, length: { maximum: 255 }, presence: true
 
-  after_commit :create_hash_tags, on: :create
-
-  private
+  after_commit :create_hash_tags, on: %i[create update destroy]
 
   def create_hash_tags
     extract_name_hash_tags.each do |name|
@@ -17,7 +15,7 @@ class Question < ApplicationRecord
     end
   end
 
-  def extract_name_hash_tags
-    text.to_s.scan(/#\w+/).map{ |name| name.gsub("#", "") }
+  def extract_name_hash_tags(description)
+    description.scan(/#\w+/).map{ |name| name.gsub("#", "") }
   end
 end
