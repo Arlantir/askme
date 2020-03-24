@@ -10,9 +10,9 @@ class Question < ApplicationRecord
   after_commit :create_hash_tags, on: %i[create update]
 
   def create_hash_tags
-    answer.nil? ? text : (text + answer).scan(/#[[:word:]-]+/).map do |str|
+    "#{text} #{answer}".downcase.scan(/#[[:word:]-]+/).map do |str|
       str.gsub("#", "")
-      hash_tags.create(name: str)
+      hash_tags.find_or_create_by(name: str)
     end
   end
 end
