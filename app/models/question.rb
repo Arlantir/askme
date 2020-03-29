@@ -5,14 +5,16 @@ class Question < ApplicationRecord
   has_many :question_hash_tags, dependent: :destroy
   has_many :hash_tags, through: :question_hash_tags
 
+  scope :hashtags, -> { left_joins(:hash_tags).where.not(hash_tags: { name: nil }) }
+
   validates :text, length: { maximum: 255 }, presence: true
 
   after_commit :create_hash_tags, on: %i[create update]
 
   def create_hash_tags
-    "#{text} #{answer}".downcase.scan(/#[[:word:]-]+/).map do |str|
-      str.gsub("#", "")
-      hash_tags.find_or_create_by(name: str)
-    end
+    hash_tags =
+      "#{text} #{answer}".downcase.scan(/#[[:word:]-]+/).uniq.map do |str|
+        HashTag.find_or_create_by(name: str)
+      end
   end
 end
