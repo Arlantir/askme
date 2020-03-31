@@ -1,5 +1,5 @@
 <%# Этот шаблон отрисуется, когда пользователь захочет посмотреть список пользователей %>
-<div class="content-wrapper buffer-both text-center">
+<div class="content-wrapper buffer-both-small text-center">
   <div class="buffer-both">
     <h1 class="title-medium">Наши пользователи</h1>
   </div>
@@ -18,4 +18,10 @@
       </div>
     </div>
   <% end %>
+</div>
+
+<div class="row">
+  <div class="content-wrapper text-center">
+    <%= @hashtags.map{|q| q.name} %>
+  </div>
 </div>
