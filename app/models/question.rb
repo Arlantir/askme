@@ -5,8 +5,6 @@ class Question < ApplicationRecord
   has_many :question_hash_tags, dependent: :destroy
   has_many :hash_tags, through: :question_hash_tags
 
-  scope :hashtags, -> { left_joins(:hash_tags).where.not(hash_tags: {name: nil}) }
-
   validates :text, length: {maximum: 255}, presence: true
 
   after_commit :create_hash_tags, on: %i[create update]
