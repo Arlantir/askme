@@ -8,6 +8,6 @@ class HashTagsController < ApplicationController
   private
 
   def load_hashtag
-    @hashtags = HashTag.find_by(params[:id])
+    @hashtags = HashTag.find(params[:id])
   end
 end

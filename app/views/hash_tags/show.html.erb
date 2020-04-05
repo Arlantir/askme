@@ -1,5 +1,13 @@
-<div class="row">
-  <div class="content-wrapper text-center">
-    <%#= @hashtag_questions %>
+<% @hashtag_questions.each do |q| %>
+<div class="row buffer-statistic ">
+  <div class="text-center">
+    <div class="question">
+      <div class="question-content user-questions buffer-both">
+        <div class="question-text text-lead ">
+          <%= q.text %>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
+<% end %>
