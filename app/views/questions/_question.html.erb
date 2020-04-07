@@ -19,8 +19,10 @@
 
     <div class="question-date">
       <%= l(question.created_at, format: :short) %>
-      <%= question.author_id.present? ? link_to("@#{question.author.username}", user_path(question.author)) : 'Anonimous' %>
-      <%= link_to question.hash_tags.map{|q| q.name}.join(' ')%>
+      <%= question.author ? link_to("@#{question.author.username}", user_path(question.author)) : 'Anonimous' %>
+      <% question.hash_tags.each do |h| %>
+        <%= link_to h.name, hash_tag_path(h.id) %>
+      <% end %>
     </div>
   </div>
 
