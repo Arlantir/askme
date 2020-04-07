@@ -5,7 +5,7 @@ class UsersController < ApplicationController
 
   def index
     @users = User.sorted
-    @hashtags = HashTag.all
+    @hashtags = HashTag.having_questions
   end
 
   def new
