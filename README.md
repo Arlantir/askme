@@ -10,7 +10,7 @@
  
  1. Скопировать/клонировать проект;
  2. Установить и настроить базу данных (в проекте по умолчанию используется [SQLite][1])
- 3. Установить [Redis][2], [NodeJS][3], [Yarn][4]
+ 3. Установить [NodeJS][2], [Yarn][3]
  
   **Настройка**
   
@@ -32,6 +32,5 @@
  
  
   [1]: https://www.sqlite.org/index.html
-  [2]: https://redis.io/
-  [3]: https://nodejs.org/en/
-  [4]: https://yarnpkg.com/
+  [2]: https://nodejs.org/en/
+  [3]: https://yarnpkg.com/
