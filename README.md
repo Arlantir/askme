@@ -1,6 +1,6 @@
 # Приложение «Спроси меня»
 
-Клон приложения **ASKME**
+Клон приложения **ASKME** на **rails 6.0.2.1** и **ruby 2.6.5.**
 
 **Демо**
  
@@ -26,7 +26,7 @@ bundle install
 cp databese.yml.example databese.yml
 ```
 
-3. Перейдите в папку проекта и выполните команды:
+3. Выполните команды:
 
 ```
 rails db:create db:migrate
